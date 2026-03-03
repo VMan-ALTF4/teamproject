@@ -219,5 +219,3 @@ public class BangTinh extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     // End of variables declaration//GEN-END:variables
 }
-
-//loL
