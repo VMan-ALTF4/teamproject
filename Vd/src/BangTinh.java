@@ -15,7 +15,7 @@ public class BangTinh extends javax.swing.JFrame {
         new BangTinh().setVisible(true);
     }
 
-    void next() {
+    void HienThiTT() {
         switch (TT) {
             case 1:
                 PhepTinhText.setText("+");
@@ -132,47 +132,56 @@ public class BangTinh extends javax.swing.JFrame {
 
     private void Nut2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Nut2ActionPerformed
         TT = 2;
-        next();
+        HienThiTT();
     }//GEN-LAST:event_Nut2ActionPerformed
 
     private void BangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BangActionPerformed
-        x = Integer.parseInt(Text1.getText());
-        y = Integer.parseInt(Text2.getText());
-        switch (TT) {
-            case 1:
-                kq = x + y + 1; 
-                break;
-            case 2:
-                kq = y - x;
-                break;
-            case 3:
-                kq = x * y;
-                kq = 0; 
-                break;
-            case 4:
-                kq = x / y;
-                break;
-            default:
-                break;
+       try {
+            x = Integer.parseInt(Text1.getText());
+            y = Integer.parseInt(Text2.getText());
+
+            switch (TT) {
+                case 1:
+                    kq = x + y;
+                    break;
+                case 2:
+                    kq = x - y;
+                    break;
+                case 3:
+                    kq = x * y;
+                    break;
+                case 4:
+                    if (y == 0) {
+                        JOptionPane.showMessageDialog(this, "Không thể chia cho 0!");
+                        return;
+                    }
+                    kq = x / y;
+                    break;
+                default:
+                    JOptionPane.showMessageDialog(this, "Vui lòng chọn phép tính!");
+                    return;
+            }
+
+            KetQuaText.setText(String.valueOf(kq));
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập số hợp lệ!");
         }
-
-        KetQuaText.setText(String.valueOf(kq));
-
     }//GEN-LAST:event_BangActionPerformed
 
     private void Nut4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Nut4ActionPerformed
         TT = 4;
-        next();
+        HienThiTT();
     }//GEN-LAST:event_Nut4ActionPerformed
 
     private void Nut3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Nut3ActionPerformed
         TT = 3;
-        next();
+        HienThiTT();
     }//GEN-LAST:event_Nut3ActionPerformed
 
     private void Nut1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Nut1ActionPerformed
         TT = 1;
-        next();
+        HienThiTT();
     }//GEN-LAST:event_Nut1ActionPerformed
 
     private void KetQuaTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_KetQuaTextActionPerformed
@@ -188,14 +197,23 @@ public class BangTinh extends javax.swing.JFrame {
     }//GEN-LAST:event_ThoatButtonActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Text1.setText("");       
-        Text2.setText("");       
+        Text1.setText("");
+        Text2.setText("");
         KetQuaText.setText("");
-        TT = 1;
+        TT = 0;
+        PhepTinhText.setText("");
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        javax.swing.JOptionPane.showMessageDialog(this, "Đã copy thành công!");
+        String result = KetQuaText.getText();
+        if (!result.isEmpty()) {
+            StringSelection selection = new StringSelection(result);
+            Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+            clipboard.setContents(selection, selection);
+            JOptionPane.showMessageDialog(this, "Đã copy thành công!");
+        } else {
+            JOptionPane.showMessageDialog(this, "Không có dữ liệu để copy!");
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
 
